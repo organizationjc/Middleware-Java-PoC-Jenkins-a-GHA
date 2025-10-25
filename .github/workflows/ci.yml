@@ -35,7 +35,6 @@ jobs:
       # --- Seguridad / análisis ---
       run-trivy: false
       run-sbom: false
-      enable_depcheck: false
       run-owasp-depcheck: false
 
       # SonarCloud
