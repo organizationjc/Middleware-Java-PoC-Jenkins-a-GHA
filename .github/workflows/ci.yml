@@ -59,9 +59,9 @@ jobs:
       # TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
 
       # --- (Opcional) para despliegue por SSH ---
-      TOMCAT_SSH_HOST: ${{ secrets.TOMCAT_SSH_HOST }}
-      TOMCAT_SSH_USER: ${{ secrets.TOMCAT_SSH_USER }}
-      TOMCAT_SSH_KEY: ${{ secrets.TOMCAT_SSH_KEY }}
+      # TOMCAT_SSH_HOST: ${{ secrets.TOMCAT_SSH_HOST }}
+      # TOMCAT_SSH_USER: ${{ secrets.TOMCAT_SSH_USER }}
+      # TOMCAT_SSH_KEY: ${{ secrets.TOMCAT_SSH_KEY }}
 
       # --- (Opcional) para escaneo y firma ---
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
