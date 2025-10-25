@@ -33,9 +33,10 @@ jobs:
       use_ssh_deploy: true                       # true => usa tomcat-ssh-deploy (opcional)
 
       # --- Seguridad / análisis ---
-      enable_trivy_scan: false
-      enable_sbom: false
+      run-trivy: false
+      run-sbom: false
       enable_depcheck: false
+      run-owasp-depcheck: false
 
       # SonarCloud
       sonar-enabled: true
