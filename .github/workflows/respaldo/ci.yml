@@ -1,0 +1,35 @@
+name: App Java CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # El único job es "llamar" al pipeline centralizado
+  call-reusable-pipeline:
+    name: Call Central CI Pipeline
+    
+    # Permisos que el JOB necesita para poder OTORGAR
+    # secretos y permisos al workflow "hijo".
+    permissions:
+      # Obligatorio para OIDC o para que el hijo obtenga tokens
+      id-token: write 
+      # Obligatorio para que el hijo pueda hacer checkout
+      contents: read
+      # Obligatorio para que el hijo pueda subir SARIF
+      security-events: write 
+
+    uses: PoC-Pipeline-Conversion-Jenkins-GHA/CICD-PoC-Jenkins-a-GHA/.github/workflows/orchestrator.yml@main # ¡Apunta a tu repo central, usar versionamiento!
+    
+    # 1. Pasamos los PARÁMETROS (inputs)
+    with:
+      java-version: '17'
+      sonar-project-key: 'mi-app-java-clave-sonar'
+      snyk-org-slug: 'mi-org-snyk'
+
+    # 2. Pasamos los SECRETOS explícitamente
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

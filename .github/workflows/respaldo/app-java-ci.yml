@@ -1,0 +1,81 @@
+# .github/workflows/app-java-ci.yml
+name: App Java CI
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  java-ci:
+    permissions:
+      packages: write   # Otorga el permiso 'packages: write'
+      id-token: write   # Otorga el permiso 'id-token: write'
+      contents: read    # (Buena práctica) Permite el checkout del código
+      security-events: write # Requerido para subir resultados SARIF
+    uses: PoC-Pipeline-Conversion-Jenkins-GHA/CICD-PoC-Jenkins-a-GHA/.github/workflows/java-ci.yml@main
+    #Dependencias
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    with:
+      workflow: "java"
+      releaseId: "REL-1234687d9SdfssdsF3r1w"
+      projectId: "PROJ-999"
+      region: "DIGITAL"
+      csild: "CS-456"
+
+      sourceCode_json: |
+        { "projectStream":"master",
+          "projectModule":"mod-a",
+          "repositoryInstance":"bitbucket"
+        }
+
+      build_json: |
+        {"dependencyResolutionRepo":"artifactory",
+         "printVerboseLog":true,
+         "deployLibraries":false,
+         "pomFileLocation":".",
+         "packageIncludes":"NA",
+         "jenkinsAdditionalFolder":"content",
+         "svnProfiles":"NA",
+         "tibcoBW":{"stpVersion":"NA"},
+         "deployToPkgArchive":true}
+
+      staticCodeAnalysis_json: |
+        { "blackDuck":{"RELEASENAME":"NA",
+            "BD_ARCHER_COMPONENT":"NA",
+            "SCAN_WF":"",
+            "BD_SOURCE_SYSTEM":""},
+          "checkmarx":{"CHECKMARX_CONFIG_CMPNAME":"",
+            "CHECKMARX_ENV":"",
+            "SCAN_WF":"",
+            "CHECKMARX_CX_TEAMNAME":"",
+            "CHECKMARX_ARCHER_BASE_CMPNAME":"",
+            "CHECKMARX_TYPE_WF_SCAN":"",
+            "RELEASENAME":""},
+          "sonarQube":{"sonarExcludes":"NA",
+            "sonarLanguage":"java"},
+          "appscan":{"archerRecord":"NA"}
+        }
+
+      threshold_json: |
+        { "unitTestSuccessDensity":0,
+          "securityRating":0,
+          "techDebtRatio":0,
+          "reliabilityRating":0,
+          "unitTestCoverage":0
+        }
+
+      deploy_json: |
+        { "NA":{"rlmExecute":false,
+            "rlmEnvironment":"",
+            "rlmParams":"",
+            "rlmUIParams":"",
+            "rlmTemplate":""},
+          "SWSDEVTEST":{"rlmExecute":true,
+            "rlmEnvironment":"devtest",
+            "rlmParams":"NA",
+            "rlmUIParams":"",
+            "rlmTemplate":"tmpl-01"}
+        }
+
+      postBuildDeployEnv: ""
