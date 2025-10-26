@@ -45,6 +45,7 @@ jobs:
       # Snyk
       snyk-enabled: true
       snyk-severity-threshold: high
+      snyk-slug: "jcal0199" 
 
       # JFrog
       jfrog-enabled: false
